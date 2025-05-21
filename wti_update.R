@@ -1,5 +1,3 @@
-wti_update.R
-
 library(quantmod)
 
 symbol <- "CL=F"
