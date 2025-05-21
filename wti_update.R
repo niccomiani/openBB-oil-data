@@ -1,3 +1,4 @@
+install.packages("quantmod")
 library(quantmod)
 
 symbol <- "CL=F"
