@@ -1,0 +1,12 @@
+wti_update.R
+
+library(quantmod)
+
+symbol <- "CL=F"
+getSymbols(symbol, src = "yahoo", from = "2024-01-01", auto.assign = TRUE)
+
+wti <- Cl(get(symbol))
+wti_df <- data.frame(Date = index(wti), Close = coredata(wti))
+
+write.csv(wti_df, "wti_prices.csv", row.names = FALSE)
+
