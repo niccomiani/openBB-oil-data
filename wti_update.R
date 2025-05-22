@@ -9,3 +9,12 @@ wti_df <- data.frame(Date = index(wti), Close = coredata(wti))
 
 write.csv(wti_df, "wti_prices.csv", row.names = FALSE)
 
+html_code <- '<html>
+  <head><title>WTI Prices</title></head>
+  <body>
+    <h1>Latest WTI Prices</h1>
+    <p>This is a placeholder report for WTI prices.</p>
+  </body>
+</html>'
+
+writeLines(html_code, "wti_prices.html")
