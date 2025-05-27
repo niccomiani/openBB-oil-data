@@ -1,34 +1,32 @@
-# Installa i pacchetti (solo la prima volta)
+# Install packages (only first time)
 if (!require("quantmod")) install.packages("quantmod")
 if (!require("ggplot2")) install.packages("ggplot2")
 
-# Carica i pacchetti
+# Load packages
 library(quantmod)
 library(ggplot2)
 
-# Estrai i dati del WTI da Yahoo Finance
-# Estrai i dati del WTI da Yahoo Finance
+# Download WTI data from Yahoo Finance
 symbol <- "CL=F"
 getSymbols(symbol, src = "yahoo", from = "2024-01-01", auto.assign = TRUE)
 wti <- get(symbol)
 wti_df <- data.frame(Date = index(wti), Close = as.numeric(Cl(wti)))
 
+# Set path to current directory (safe in GitHub Actions)
+output_path <- "."
 
-# Percorso del Desktop
-desktop_path <- file.path(Sys.getenv("HOME"), "Desktop")
+# Save as CSV
+write.csv(wti_df, file.path(output_path, "wti_prices.csv"), row.names = FALSE)
 
-# Salva i dati in formato CSV sul Desktop
-write.csv(wti_df, file.path(desktop_path, "wti_prices.csv"), row.names = FALSE)
-
-# Crea e salva il grafico PNG sul Desktop
-png(file.path(desktop_path, "wti_chart.png"), width = 800, height = 600)
+# Create PNG chart
+png(file.path(output_path, "wti_chart.png"), width = 800, height = 600)
 ggplot(wti_df, aes(x = Date, y = Close)) +
   geom_line(linewidth = 1, color = "steelblue") +
   theme_minimal() +
   labs(title = "WTI Crude Oil Prices", x = "Date", y = "Price (USD)")
 dev.off()
 
-# Crea HTML che include l'immagine
+# Create HTML with chart
 html_code <- paste0(
   '<html>
   <head><title>WTI Prices</title></head>
@@ -39,6 +37,6 @@ html_code <- paste0(
 </html>'
 )
 
-# Salva l'HTML sul Desktop
-writeLines(html_code, file.path(desktop_path, "index.html"))
+writeLines(html_code, file.path(output_path, "index.html"))
+
 
