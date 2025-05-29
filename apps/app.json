@@ -1,0 +1,9 @@
+[
+  {
+    "name": "WTI Dashboard",
+    "description": "Dashboard to monitor WTI crude oil using macroeconomic and technical indicators.",
+    "tags": ["oil", "macro", "technical", "WTI"],
+    "widgets": [],
+    "layout": []
+  }
+]
