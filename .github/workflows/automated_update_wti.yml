@@ -2,8 +2,8 @@ name: Update WTI Prices
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # Every day at 6:00 UTC
-  workflow_dispatch: {}  # Allow manual trigger
+    - cron: '30 22 * * 1-5'  # from monday to friday 22:30 ITA
+workflow_dispatch: {}  # Allow manual trigger
 
 jobs:
   build:
