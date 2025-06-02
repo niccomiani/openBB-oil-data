@@ -2,8 +2,8 @@ name: Update WTI Prices
 
 on:
   schedule:
-    - cron: '30 22 * * 1-5'  # from monday to friday 22:30 ITA
-workflow_dispatch: {}  # Allow manual trigger
+    - cron: '0 6 * * *'  # Ogni giorno alle 06:00 UTC
+  workflow_dispatch:
 
 jobs:
   build:
@@ -23,16 +23,19 @@ jobs:
 
       - name: Install R packages
         run: |
-          Rscript -e 'install.packages(c("quantmod", "ggplot2"))'
+          Rscript -e 'install.packages(c("httr", "jsonlite", "ggplot2", "readr"), repos="https://cloud.r-project.org")'
 
       - name: Run R script
         run: Rscript WTI_update.R
 
       - name: Commit and push updates
- run: |
-    git config --global user.email "actions@github.com"
-    git config --global user.name "GitHub Actions"
-    git add .
-    git diff --cached --quiet || git commit -m "Auto-update WTI data"
-    git push
-
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add .
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Auto-update WTI data"
+            git push
+          fi
