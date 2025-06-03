@@ -1,4 +1,4 @@
-png("wti_cross_plot.png", width = 1000, height = 600)
+png("apps/wti_cross_plot/wti_cross_plot.png", width = 1000, height = 600)
 installed.packages("TTR", "quantmod")  ## install necessary packages
 library(quantmod)
 library(TTR)
