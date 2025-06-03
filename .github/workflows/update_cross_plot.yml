@@ -1,8 +1,6 @@
 name: Auto Update Cross Plot
 
 on:
-  schedule:
-    - cron: '0 6 * * *'  # Ogni giorno alle 6:00 UTC
   workflow_dispatch:
 
 jobs:
@@ -18,7 +16,7 @@ jobs:
 
       - name: Install packages
         run: |
-          Rscript -e 'install.packages(c("quantmod", "TTR", "xts", "zoo"))'
+          Rscript -e 'install.packages(c("quantmod", "TTR"))'
 
       - name: Run R script
         run: |
@@ -28,6 +26,6 @@ jobs:
         run: |
           git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"
-          git add apps/wti_cross_plot/wti_cross_plot.png
-          git commit -m "Auto-update cross plot"
-          git push
+          git add apps/wti_cross_plot/wti_cross_plot.png || echo "No file to add"
+          git commit -m "Auto-update WTI cross plot" || echo "Nothing to commit"
+          git push origin main
