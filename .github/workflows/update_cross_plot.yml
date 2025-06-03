@@ -20,9 +20,9 @@ jobs:
       run: |
         Rscript -e 'install.packages(c("quantmod", "TTR"))'
 
-    - name: Run R script
-      run: |
-        Rscript apps/wti_cross_plot/UPDATE_CROSS_WTI.R
+- name: Run R script
+  run: |
+    Rscript apps/wti_cross_plot/UPDATE_CROSS_WTI.R
 
     - name: Commit and push
       run: |
