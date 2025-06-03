@@ -6,10 +6,11 @@ if (!requireNamespace("TTR", quietly = TRUE)) {
 }
 
 library(quantmod)
-library(TTR)png("wti_cross_plot.png", width = 1000, height = 600)
-installed.packages("TTR", "quantmod")  ## install necessary packages
-library(quantmod)
 library(TTR)
+
+png("apps/wti_cross_plot/wti_cross_plot.png", width = 1000, height = 600)  ## Create PNG file for the plot
+
+installed.packages("TTR", "quantmod")  ## install necessary packages (this line can be removed because packages are installed above)
 
 # download historical WTI crude oil data
 oil <- getSymbols("CL=F", src = "yahoo", from= "2000-01-01", auto.assign = FALSE)  # Continuous WTI futures prices from Yahoo
