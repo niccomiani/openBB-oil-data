@@ -1,31 +1,35 @@
-name: Auto Update Cross Plot
+name: Update Cross Plot
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * *'  # ogni giorno alle 8:00 UTC
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Set up R
-        uses: r-lib/actions/setup-r@v2
+    - name: Setup R
+      uses: r-lib/actions/setup-r@v2
 
-      - name: Install packages
-        run: |
-          Rscript -e 'install.packages(c("quantmod", "TTR"))'
+    - name: Install R packages
+      run: |
+        Rscript -e 'install.packages(c("quantmod", "TTR"))'
 
-      - name: Run R script
-        run: |
-          Rscript apps/wti_cross_plot/UPDATE_CROSS_WTI.R
+    - name: Run R script
+      run: |
+        Rscript apps/wti_cross_plot/UPDATE_CROSS_WTI.R
 
-      - name: Commit and push updated plot
-        run: |
-          git config --global user.email "github-actions@github.com"
-          git config --global user.name "github-actions"
-          git add apps/wti_cross_plot/wti_cross_plot.png || echo "No file to add"
-          git commit -m "Auto-update WTI cross plot" || echo "Nothing to commit"
-          git push origin main
+    - name: Commit and push
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add apps/wti_cross_plot/wti_cross_plot.png
+        git commit -m "Update cross plot from workflow" || echo "No changes to commit"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
