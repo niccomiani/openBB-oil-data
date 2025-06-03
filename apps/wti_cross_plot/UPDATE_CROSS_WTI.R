@@ -1,4 +1,12 @@
-png("wti_cross_plot.png", width = 1000, height = 600)
+if (!requireNamespace("quantmod", quietly = TRUE)) {
+  install.packages("quantmod", repos = "https://cloud.r-project.org")
+}
+if (!requireNamespace("TTR", quietly = TRUE)) {
+  install.packages("TTR", repos = "https://cloud.r-project.org")
+}
+
+library(quantmod)
+library(TTR)png("wti_cross_plot.png", width = 1000, height = 600)
 installed.packages("TTR", "quantmod")  ## install necessary packages
 library(quantmod)
 library(TTR)
