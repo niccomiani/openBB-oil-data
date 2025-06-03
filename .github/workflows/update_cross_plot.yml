@@ -18,7 +18,7 @@ jobs:
 
       - name: Install R packages
         run: |
-          Rscript -e 'install.packages(c("quantmod", "TTR"))'
+          Rscript -e 'options(repos = c(CRAN = "https://cloud.r-project.org")); install.packages(c("quantmod", "TTR"))'
 
       - name: Run R script
         run: |
