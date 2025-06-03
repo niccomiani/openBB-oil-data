@@ -1,4 +1,4 @@
-png("wti_cross_plot.png", width = 1000, height = 600)
+png("apps/wti_cross_plot/wti_cross_plot.png", width = 1000, height = 600)
 installed.packages("TTR", "quantmod")  ## install necessary packages
 library(quantmod)
 library(TTR)
@@ -77,8 +77,7 @@ for (i in seq_along(labels)) {
 dev.off()
 
 # Git commit and push to GitHub
-system("git add apps/wti_cross_plot/wti_cross_plot.png")
-system("git commit -m 'Auto update wti_cross_plot.png'")
+system("git add -A")
+system("git commit -m 'Auto update cross plot'")
 system("git push origin main")
-
 
