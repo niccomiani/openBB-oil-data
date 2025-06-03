@@ -25,9 +25,9 @@ jobs:
           Rscript apps/wti_cross_plot/UPDATE_CROSS_WTI.R
 
       - name: Commit and push updated plot
-        run: |
-          git config --global user.email "github-actions@github.com"
-          git config --global user.name "github-actions"
-          git add apps/wti_cross_plot/wti_cross_plot.png
-          git commit -m "Auto-update cross plot"
-          git push
+  run: |
+    git config --global user.email "github-actions@github.com"
+    git config --global user.name "github-actions"
+    git add apps/wti_cross_plot/wti_cross_plot.png
+    git commit -m "Auto-update WTI cross plot" || echo "Nothing to commit"
+    git push origin main
